@@ -3,6 +3,7 @@ import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 import Dashboard from './Pages/Dashboard'
 import MilkCategory from "../src/Pages/Category/MilkCategory.jsx"
 import Login from './Pages/Login'
+import BreadCategory from './Pages/Category/BreadCategory.jsx'
 const App = () => {
   return (
     <>
@@ -11,6 +12,7 @@ const App = () => {
       <Route path='/' element={<Dashboard/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/milk-category' element={<MilkCategory/>}/>
+      <Route path='/bread-category' element={<BreadCategory/>}/>
     </Routes>
    </Router>
     </>
