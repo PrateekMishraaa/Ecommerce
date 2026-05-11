@@ -63,7 +63,6 @@ import B59 from "../../assets/breads/b59.avif";
 import B60 from "../../assets/breads/b60.avif";
 
 const BreadCategory = () => {
-  // Generate 60 bread/bakery products
   const breads = [
     { id: 1, img: B1, title: "Fresh White Bread", weight: "400 g", price: "35", time: "16 mins" },
     { id: 2, img: B2, title: "Brown Bread", weight: "400 g", price: "40", time: "16 mins" },
@@ -130,48 +129,46 @@ const BreadCategory = () => {
   return (
     <>
       <Navbar />
-      <div className="relative">
-        <Sidebar />
-        <main className="ml-20 px-8 py-4">
-          <h2 className="text-xs font-bold cursor-pointer mb-4">Breads & Bakery</h2>
-          <section className="w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {breads.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-200 p-3"
-                >
-                  <div className="flex justify-center mb-2">
-                    <img
-                      src={item.img}
-                      alt={item.title}
-                      className="h-32 w-32 object-contain"
-                    />
-                  </div>
-                  <div className="inline-block bg-amber-50 px-2 py-0.5 rounded-full mb-2">
-                    <p className="text-amber-700 text-xs font-semibold">⏱️ {item.time}</p>
-                  </div>
-                  <p className="text-sm font-semibold text-gray-800 line-clamp-2 h-10">
-                    {item.title}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">{item.weight}</p>
-                  <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center gap-1">
-                      <p className="text-base font-bold text-gray-900">₹{item.price}</p>
-                      {item.cancelPrice && (
-                        <p className="text-xs text-gray-400 line-through">₹{item.cancelPrice}</p>
-                      )}
-                    </div>
-                    <button className="px-3 py-1.5 text-xs font-semibold text-green-700 border border-green-500 rounded-full hover:bg-green-50 transition-colors">
-                      ADD TO CART
-                    </button>
-                  </div>
+      <Sidebar />
+      <main className="ml-0 md:ml-20 px-4 sm:px-8 py-4 pb-20 md:pb-4">
+        <h2 className="text-xs font-bold cursor-pointer mb-4">Breads & Bakery</h2>
+        <section className="w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
+            {breads.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-200 p-2 sm:p-3"
+              >
+                <div className="flex justify-center mb-2">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="h-24 sm:h-32 w-24 sm:w-32 object-contain"
+                  />
                 </div>
-              ))}
-            </div>
-          </section>
-        </main>
-      </div>
+                <div className="inline-block bg-amber-50 px-2 py-0.5 rounded-full mb-2">
+                  <p className="text-amber-700 text-xs font-semibold">⏱️ {item.time}</p>
+                </div>
+                <p className="text-xs sm:text-sm font-semibold text-gray-800 line-clamp-2 h-8 sm:h-10">
+                  {item.title}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">{item.weight}</p>
+                <div className="flex items-center justify-between mt-3">
+                  <div className="flex items-center gap-1 flex-wrap">
+                    <p className="text-sm sm:text-base font-bold text-gray-900">₹{item.price}</p>
+                    {item.cancelPrice && (
+                      <p className="text-xs text-gray-400 line-through">₹{item.cancelPrice}</p>
+                    )}
+                  </div>
+                  <button className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-semibold text-green-700 border border-green-500 rounded-full hover:bg-green-50 transition-colors whitespace-nowrap">
+                    ADD TO CART
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
     </>
   );
 };

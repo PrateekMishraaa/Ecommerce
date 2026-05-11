@@ -4,50 +4,71 @@ import { IoChevronDown } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-    const navigate = useNavigate()
-  const [location, setLocation] = useState("Badarpur meethapur New Delhi  110044");
+  const navigate = useNavigate();
+  const [location, setLocation] = useState("Badarpur meethapur New Delhi 110044");
   const [searchTerm, setSearchTerm] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleNavigate = () => {
+    navigate('/login');
+  };
 
-  const handleNavigate=()=>{
-    navigate('/login')
-  }
   return (
-   <>
     <nav className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3">
-  
-        <div className="flex flex-wrap items-center justify-between gap-4">
-   
+        {/* Row 1: Logo + Delivery/Location + Cart Icon (mobile) */}
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          {/* Logo */}
           <div className="flex items-center gap-2">
-            <p className="text-2xl font-bold uppercase tracking-tight">
+            <p className="text-xl sm:text-2xl font-bold uppercase tracking-tight">
               <span className="text-amber-400">s</span>
               <span className="text-amber-400">w</span>
               <span className="text-amber-400">i</span>
               <span className="text-amber-400">f</span>
               <span className="text-amber-400">t</span>
               <span className="text-green-600">cart</span>
-              <CiShoppingCart className="inline text-2xl text-blue-800" />
+              <CiShoppingCart className="inline text-xl sm:text-2xl text-blue-800" />
             </p>
           </div>
 
-       
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-1 text-sm font-medium">
-              <span className="text-green-600">⏱️ Delivery in </span>
-              <span className="font-bold">16 minutes</span>
+          {/* Delivery + Location (visible on all screens) */}
+          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+            <div className="flex items-center gap-1 text-xs sm:text-sm font-medium">
+              <span className="text-green-600">⏱️ Delivery in</span>
+              <span className="font-bold">16 min</span>
             </div>
-            <div className="flex items-center gap-1 cursor-pointer hover:bg-gray-50 px-2 py-1 rounded-lg">
-              <CiLocationOn className="text-xl text-green-600" />
-              <span className="text-sm font-medium truncate max-w-[180px]">
+            <div className="flex items-center gap-1 cursor-pointer hover:bg-gray-50 px-1 sm:px-2 py-1 rounded-lg">
+              <CiLocationOn className="text-lg sm:text-xl text-green-600" />
+              <span className="text-xs sm:text-sm font-medium truncate max-w-[120px] sm:max-w-[180px]">
                 {location}
               </span>
-              <IoChevronDown className="text-xs text-gray-500" />
+              <IoChevronDown className="text-xs text-gray-500 hidden sm:inline" />
             </div>
           </div>
 
-        
-          <div className="flex-1 max-w-xl mx-4">
+          {/* Mobile: Cart icon + Menu toggle (optional) */}
+          <div className="flex sm:hidden items-center gap-3">
+            <div 
+              onClick={() => navigate('/cart')}
+              className="relative"
+            >
+              <CiShoppingCart className="text-2xl text-green-600" />
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                0
+              </span>
+            </div>
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-gray-700"
+            >
+              {mobileMenuOpen ? '✕' : '☰'}
+            </button>
+          </div>
+        </div>
+
+        {/* Row 2: Search Bar (full width on mobile, inline on desktop) */}
+        <div className="mt-3 sm:mt-0 sm:flex sm:items-center sm:justify-between gap-4">
+          <div className="flex-1 max-w-xl mx-0 sm:mx-4">
             <div className="relative">
               <CiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
               <input
@@ -60,20 +81,51 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button onClick={handleNavigate} className="flex items-center gap-1 text-gray-700 hover:text-green-600 transition">
+          {/* Desktop: Login + Cart (hidden on mobile, shown in mobile menu) */}
+          <div className="hidden sm:flex items-center gap-4 mt-2 sm:mt-0">
+            <button
+              onClick={handleNavigate}
+              className="flex items-center gap-1 text-gray-700 hover:text-green-600 transition"
+            >
               <CiUser className="text-xl" />
-              <span className="text-sm font-medium hidden sm:inline cursor-pointer">Login</span>
+              <span className="text-sm font-medium hidden sm:inline cursor-pointer">
+                Login
+              </span>
             </button>
-            <div className="flex items-center gap-1 bg-green-600 text-white px-3 py-1.5 rounded-full cursor-pointer hover:bg-green-700 transition">
+            <div
+              onClick={() => navigate('/cart')}
+              className="flex items-center gap-1 bg-green-600 text-white px-3 py-1.5 rounded-full cursor-pointer hover:bg-green-700 transition"
+            >
               <CiShoppingCart className="text-xl" />
               <span className="text-sm font-semibold">My Cart</span>
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu (collapsible) */}
+        {mobileMenuOpen && (
+          <div className="sm:hidden mt-4 pt-3 border-t border-gray-200 flex flex-col gap-3">
+            <button
+              onClick={handleNavigate}
+              className="flex items-center gap-2 text-gray-700 hover:text-green-600 transition w-full py-2"
+            >
+              <CiUser className="text-xl" />
+              <span className="text-sm font-medium">Login / Signup</span>
+            </button>
+            <div
+              onClick={() => navigate('/cart')}
+              className="flex items-center justify-between bg-green-50 text-green-700 p-3 rounded-lg cursor-pointer"
+            >
+              <div className="flex items-center gap-2">
+                <CiShoppingCart className="text-xl" />
+                <span className="text-sm font-semibold">My Cart</span>
+              </div>
+              <span className="text-xs font-bold">₹0.00</span>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
-   </>
   );
 };
 

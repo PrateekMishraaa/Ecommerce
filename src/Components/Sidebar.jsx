@@ -23,48 +23,77 @@ import Sidebar20 from "../assets/s20.avif";
 
 const Sidebar = () => {
   const sidebarItems = [
-    { img: Sidebar1, path: '/' },
-    { img: Sidebar2, path: '/bread-category' },
-    { img: Sidebar3, path: '/milk-category' },
-    { img: Sidebar4, path: '/milk-category' },
-    { img: Sidebar5, path: '/milk-category' },
-    { img: Sidebar6, path: '/milk-category' },
-    { img: Sidebar7, path: '/milk-category' },
-    { img: Sidebar8, path: '/milk-category' },
-    { img: Sidebar9, path: '/milk-category' },
-    { img: Sidebar10, path: '/milk-category' },
-    { img: Sidebar11, path: '/milk-category' },
-    { img: Sidebar12, path: '/milk-category' },
-    { img: Sidebar13, path: '/milk-category' },
-    { img: Sidebar14, path: '/milk-category' },
-    { img: Sidebar15, path: '/milk-category' },
-    { img: Sidebar16, path: '/milk-category' },
-    { img: Sidebar17, path: '/milk-category' },
-    { img: Sidebar18, path: '/milk-category' },
-    { img: Sidebar19, path: '/milk-category' },
-    { img: Sidebar20, path: '/milk-category' },
+    { img: Sidebar1, path: '/', label: 'Home' },
+    { img: Sidebar2, path: '/bread-category', label: 'Bread' },
+    { img: Sidebar3, path: '/milk-category', label: 'Milk' },
+    { img: Sidebar4, path: '/milk-category', label: 'Dairy' },
+    { img: Sidebar5, path: '/milk-category', label: 'Curd' },
+    { img: Sidebar6, path: '/milk-category', label: 'Cheese' },
+    { img: Sidebar7, path: '/milk-category', label: 'Butter' },
+    { img: Sidebar8, path: '/milk-category', label: 'Ghee' },
+    { img: Sidebar9, path: '/milk-category', label: 'Paneer' },
+    { img: Sidebar10, path: '/milk-category', label: 'Yogurt' },
+    { img: Sidebar11, path: '/milk-category', label: 'Ice Cream' },
+    { img: Sidebar12, path: '/milk-category', label: 'Shake' },
+    { img: Sidebar13, path: '/milk-category', label: 'Lassi' },
+    { img: Sidebar14, path: '/milk-category', label: 'Chaas' },
+    { img: Sidebar15, path: '/milk-category', label: 'Soy Milk' },
+    { img: Sidebar16, path: '/milk-category', label: 'Almond Milk' },
+    { img: Sidebar17, path: '/milk-category', label: 'Oat Milk' },
+    { img: Sidebar18, path: '/milk-category', label: 'Coconut Milk' },
+    { img: Sidebar19, path: '/milk-category', label: 'Condensed Milk' },
+    { img: Sidebar20, path: '/milk-category', label: 'Powdered Milk' },
   ];
 
   return (
-  <>
-    <section className='h-screen w-20 fixed left-0 top-28 overflow-y-auto px-10 bg-white border-r border-gray-200 shadow-sm'>
-      <div className='flex flex-col items-center py-4 gap-3'>
-        {sidebarItems.map((item, index) => (
-          <Link 
-            key={index} 
-            to={item.path}
-            className='w-10 h-10 rounded-xl overflow-hidden hover:scale-110 transition-transform duration-200 shadow-md'
-          >
-            <img 
-              src={item.img} 
-              alt={`category-${index}`}
-              className='w-full h-full object-cover'
-            />
-          </Link>
-        ))}
+    <>
+      {/* Desktop Sidebar: fixed left, visible only on md and above */}
+      <section className='hidden md:block h-screen w-20 fixed left-0 top-28 overflow-y-auto bg-white border-r border-gray-200 shadow-sm z-40'>
+        <div className='flex flex-col items-center py-4 gap-3'>
+          {sidebarItems.map((item, index) => (
+            <Link
+              key={index}
+              to={item.path}
+              className='w-12 h-12 rounded-xl overflow-hidden hover:scale-110 transition-transform duration-200 shadow-md'
+              title={item.label}
+            >
+              <img
+                src={item.img}
+                alt={item.label}
+                className='w-full h-full object-cover'
+              />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Mobile Horizontal Scroll Bar: visible only below md */}
+      <div className='md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 overflow-x-auto'>
+        <div className='flex flex-row items-center gap-4 px-4 py-2 min-w-max'>
+          {sidebarItems.map((item, index) => (
+            <Link
+              key={index}
+              to={item.path}
+              className='flex flex-col items-center gap-1 min-w-[56px]'
+            >
+              <div className='w-10 h-10 rounded-full overflow-hidden shadow-sm border border-gray-100'>
+                <img
+                  src={item.img}
+                  alt={item.label}
+                  className='w-full h-full object-cover'
+                />
+              </div>
+              <span className='text-[10px] text-gray-600 font-medium truncate w-full text-center'>
+                {item.label}
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
-    </section>
-  </>
+
+      {/* Spacer for mobile bottom navbar to prevent content overlap */}
+      <div className='md:hidden h-16' />
+    </>
   );
 };
 

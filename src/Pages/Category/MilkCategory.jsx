@@ -40,7 +40,6 @@ import M38 from '../../assets/milkproducts/milk38.avif';
 import M39 from '../../assets/milkproducts/milk39.avif';
 import M40 from '../../assets/milkproducts/milk40.avif';
 
-
 const MilkCategory = () => {
   const categories = [
     { id: 1, img: M1, time: '16 mins', title: 'Amul Taaza Toned Milk', litre: '500 ml', price: '29' },
@@ -83,39 +82,38 @@ const MilkCategory = () => {
     { id: 38, img: M38, time: '16 mins', title: 'Paper Boat Aamras', litre: '1 litre', price: '120' },
     { id: 39, img: M39, time: '16 mins', title: 'Tropicana Orange Juice', litre: '1 litre', price: '110' },
     { id: 40, img: M40, time: '16 mins', title: 'Real Fruit Juice Mixed', litre: '1 litre', price: '100' },
-   
   ];
 
   return (
-    <section className="w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <section className="w-full pb-20 md:pb-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
         {categories.map((item) => (
           <div
             key={item.id}
-            className="bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-200 p-3"
+            className="bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-shadow duration-200 p-2 sm:p-3"
           >
             <div className="flex justify-center mb-2">
               <img
                 src={item.img}
                 alt={item.title}
-                className="h-32 w-32 object-contain"
+                className="h-24 sm:h-32 w-24 sm:w-32 object-contain"
               />
             </div>
             <div className="inline-block bg-amber-50 px-2 py-0.5 rounded-full mb-2">
               <p className="text-amber-700 text-xs font-semibold">⏱️ {item.time}</p>
             </div>
-            <p className="text-sm font-semibold text-gray-800 line-clamp-2 h-10">
+            <p className="text-xs sm:text-sm font-semibold text-gray-800 line-clamp-2 h-8 sm:h-10">
               {item.title}
             </p>
             <p className="text-xs text-gray-500 mt-1">{item.litre}</p>
             <div className="flex items-center justify-between mt-3">
-              <div className="flex items-center gap-1">
-                <p className="text-base font-bold text-gray-900">₹{item.price}</p>
+              <div className="flex items-center gap-1 flex-wrap">
+                <p className="text-sm sm:text-base font-bold text-gray-900">₹{item.price}</p>
                 {item.cancelPrice && (
                   <p className="text-xs text-gray-400 line-through">₹{item.cancelPrice}</p>
                 )}
               </div>
-              <button className="px-3 py-1.5 text-xs font-semibold text-green-700 border border-green-500 rounded-full hover:bg-green-50 transition-colors">
+              <button className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-semibold text-green-700 border border-green-500 rounded-full hover:bg-green-50 transition-colors whitespace-nowrap">
                 ADD TO CART
               </button>
             </div>
