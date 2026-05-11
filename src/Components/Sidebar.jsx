@@ -23,7 +23,7 @@ import Sidebar20 from "../assets/s20.avif";
 
 const Sidebar = () => {
   const sidebarItems = [
-    { img: Sidebar1, path: '/milk-category' },
+    { img: Sidebar1, path: '/' },
     { img: Sidebar2, path: '/bread-category' },
     { img: Sidebar3, path: '/milk-category' },
     { img: Sidebar4, path: '/milk-category' },
