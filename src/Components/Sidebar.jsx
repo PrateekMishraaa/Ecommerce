@@ -26,7 +26,7 @@ const Sidebar = () => {
     { img: Sidebar1, path: '/', label: 'Home' },
     { img: Sidebar2, path: '/bread-category', label: 'Bread' },
     { img: Sidebar3, path: '/egg-category', label: 'Egg' },
-    { img: Sidebar4, path: '/milk-category', label: 'Dairy' },
+    { img: Sidebar4, path: '/corn-flakes-category', label: 'Corn Flakes' },
     { img: Sidebar5, path: '/milk-category', label: 'Curd' },
     { img: Sidebar6, path: '/milk-category', label: 'Cheese' },
     { img: Sidebar7, path: '/milk-category', label: 'Butter' },
