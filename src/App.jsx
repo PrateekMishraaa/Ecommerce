@@ -4,6 +4,7 @@ import Dashboard from './Pages/Dashboard'
 import MilkCategory from "../src/Pages/Category/MilkCategory.jsx"
 import Login from './Pages/Login'
 import BreadCategory from './Pages/Category/BreadCategory.jsx'
+import EggCategory from './Pages/Category/EggCategory.jsx'
 const App = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const App = () => {
       <Route path='/login' element={<Login/>}/>
       <Route path='/milk-category' element={<MilkCategory/>}/>
       <Route path='/bread-category' element={<BreadCategory/>}/>
+      <Route path='/egg-category' element={<EggCategory/>}/>
     </Routes>
    </Router>
     </>
