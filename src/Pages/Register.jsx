@@ -5,14 +5,15 @@ import {FaEye,FaEyeSlash} from "react-icons/fa"
 import Swal from "sweetalert2"
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
-const Login = () => {
+const Register = () => {
     const navigate = useNavigate()
     const [viewPassword,setViewPassword] = useState(false)
     const [formData,setFormData] = useState({
-       
+        Fullname:"",
         Email:"",
-       Password:"",
-        
+        Phone:"",
+        Password:"",
+        Username:""
     })
     console.log('formdata',formData)
 
@@ -27,7 +28,7 @@ const Login = () => {
 
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        if( !formData.Email || !formData.Password ){
+        if(!formData.Fullname || !formData.Email || !formData.Password || !formData.Phone || !formData.Username){
             return Swal.fire('All fields are required')
         }
         if(formData.Password.length<8){
@@ -37,17 +38,15 @@ const Login = () => {
             return Swal.fire('Password must be with in 255 character')
         }
         try{
-            const response = await axios.post('http://localhost:5000/api/login',formData,{
+            const response = await axios.post('http://localhost:5000/api/sign-up',formData,{
                 headers:{
                     "Content-Type":"application/json"
                 }
             })
             console.log('response from register',response)
-            localStorage.setItem('token',response.data.token)
-           localStorage.setItem('user',JSON.stringify(response.data.user))
-            Swal.fire('Login complete')
+            Swal.fire('Register complete')
             setTimeout(()=>{
-                navigate('/')
+                navigate('/login')
             },2000)
         }catch(error){
             console.log('error',error)
@@ -69,13 +68,28 @@ const Login = () => {
             <span className="text-amber-400">t</span>
             <span className="text-green-600">cart</span>
           </h1>
-          <p className="text-gray-500 text-sm mt-2">Login account</p>
+          <p className="text-gray-500 text-sm mt-2">Create your account</p>
         </div>
 
   
         <form className="space-y-4" onSubmit={handleSubmit}>
     
-        
+          <div>
+            <label className="block text-gray-700 text-sm font-semibold mb-1">
+              Full Name
+            </label>
+            <div className="relative">
+              <CiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+              <input
+                type="text"
+                name='Fullname'
+                value={formData.Fullname}
+                onChange={handleChange}
+                placeholder="John Doe"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
+          </div>
 
           <div>
             <label className="block text-gray-700 text-sm font-semibold mb-1">
@@ -94,6 +108,40 @@ const Login = () => {
             </div>
           </div>
 
+
+           <div>
+            <label className="block text-gray-700 text-sm font-semibold mb-1">
+            Username
+            </label>
+            <div className="relative">
+              <CiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+              <input
+                type="text"
+                name='Username'
+                value={formData.Username}
+                onChange={handleChange}
+                placeholder="username"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-gray-700 text-sm font-semibold mb-1">
+              Phone Number <span className="text-gray-400 text-xs">(optional)</span>
+            </label>
+            <div className="relative">
+              <CiPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+              <input
+                type="text"
+                name='Phone'
+                value={formData.Phone}
+                onChange={handleChange}
+                placeholder="+91 98765 43210"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
+          </div>
 
           <div>
             <label className="block text-gray-700 text-sm font-semibold mb-1">
@@ -141,7 +189,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg transition duration-200"
           >
-            login
+            Sign Up
           </button>
         </form>
 
@@ -159,4 +207,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Register;

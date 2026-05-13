@@ -1,16 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiShoppingCart, CiLocationOn, CiSearch, CiUser } from "react-icons/ci";
 import { IoChevronDown } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);          // store user object
   const [location, setLocation] = useState("Badarpur meethapur New Delhi 110044");
   const [searchTerm, setSearchTerm] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    
+    setIsAuthenticated(!!token);
+    
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData));   // parse stored user JSON
+      } catch (e) {
+        console.error("Failed to parse user data", e);
+      }
+    }
+  }, []);
+
+  const handleLogout=()=>{
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
   const handleNavigate = () => {
-    navigate('/login');
+    if (isAuthenticated) {
+      // optional: go to profile page
+      navigate('/profile');
+    } else {
+      navigate('/register');
+    }
+  };
+
+  const handleCartClick = () => {
+    if (isAuthenticated) {
+      navigate('/cart');
+    } else {
+      alert("Please login first to view your cart");
+    }
   };
 
   return (
@@ -31,7 +65,7 @@ const Navbar = () => {
             </p>
           </div>
 
-          {/* Delivery + Location (visible on all screens) */}
+          {/* Delivery + Location */}
           <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
             <div className="flex items-center gap-1 text-xs sm:text-sm font-medium">
               <span className="text-green-600">⏱️ Delivery in</span>
@@ -46,18 +80,18 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile: Cart icon + Menu toggle (optional) */}
+          {/* Mobile Cart Icon + Menu Toggle */}
           <div className="flex sm:hidden items-center gap-3">
-            <div 
-              onClick={() => navigate('/cart')}
-              className="relative"
+            <div
+              onClick={handleCartClick}
+              className={`relative ${!isAuthenticated ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               <CiShoppingCart className="text-2xl text-green-600" />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 0
               </span>
             </div>
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="text-gray-700"
             >
@@ -66,7 +100,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Row 2: Search Bar (full width on mobile, inline on desktop) */}
+        {/* Row 2: Search Bar + Desktop Login/Cart */}
         <div className="mt-3 sm:mt-0 sm:flex sm:items-center sm:justify-between gap-4">
           <div className="flex-1 max-w-xl mx-0 sm:mx-4">
             <div className="relative">
@@ -81,7 +115,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop: Login + Cart (hidden on mobile, shown in mobile menu) */}
+          {/* Desktop: Register/Username + Cart */}
           <div className="hidden sm:flex items-center gap-4 mt-2 sm:mt-0">
             <button
               onClick={handleNavigate}
@@ -89,16 +123,21 @@ const Navbar = () => {
             >
               <CiUser className="text-xl" />
               <span className="text-sm font-medium hidden sm:inline cursor-pointer">
-                Login
+                {isAuthenticated && user ? user.username : "Register"}
               </span>
             </button>
             <div
-              onClick={() => navigate('/cart')}
-              className="flex items-center gap-1 bg-green-600 text-white px-3 py-1.5 rounded-full cursor-pointer hover:bg-green-700 transition"
+              onClick={handleCartClick}
+              className={`flex items-center gap-1 text-white px-3 py-1.5 rounded-full transition ${
+                isAuthenticated
+                  ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
+                  : 'bg-gray-400 cursor-not-allowed opacity-70'
+              }`}
             >
               <CiShoppingCart className="text-xl" />
               <span className="text-sm font-semibold">My Cart</span>
             </div>
+            <button onClick={handleLogout}>Logout</button>
           </div>
         </div>
 
@@ -110,11 +149,17 @@ const Navbar = () => {
               className="flex items-center gap-2 text-gray-700 hover:text-green-600 transition w-full py-2"
             >
               <CiUser className="text-xl" />
-              <span className="text-sm font-medium">Login / Signup</span>
+              <span className="text-sm font-medium">
+                {isAuthenticated && user ? user.username : "Login / Signup"}
+              </span>
             </button>
             <div
-              onClick={() => navigate('/cart')}
-              className="flex items-center justify-between bg-green-50 text-green-700 p-3 rounded-lg cursor-pointer"
+              onClick={handleCartClick}
+              className={`flex items-center justify-between p-3 rounded-lg cursor-pointer ${
+                isAuthenticated
+                  ? 'bg-green-50 text-green-700'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              }`}
             >
               <div className="flex items-center gap-2">
                 <CiShoppingCart className="text-xl" />
