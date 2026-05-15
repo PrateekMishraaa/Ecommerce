@@ -26,6 +26,9 @@ const Navbar = () => {
     }
   }, []);
 
+  const handleNavigateAddToCart=()=>{
+    navigate('/products/AddToCart')
+  }
   const handleLogout=()=>{
     localStorage.removeItem('token')
     navigate('/login')
@@ -127,7 +130,7 @@ const Navbar = () => {
               </span>
             </button>
             <div
-              onClick={handleCartClick}
+              onClick={handleNavigateAddToCart}
               className={`flex items-center gap-1 text-white px-3 py-1.5 rounded-full transition ${
                 isAuthenticated
                   ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
@@ -135,7 +138,7 @@ const Navbar = () => {
               }`}
             >
               <CiShoppingCart className="text-xl" />
-              <span className="text-sm font-semibold">My Cart</span>
+              <button className="text-sm font-semibold">My Cart</button>
             </div>
             <button onClick={handleLogout}>Logout</button>
           </div>
