@@ -143,27 +143,28 @@ const Register = () => {
             </div>
           </div>
 
-          <div>
-            <label className="block text-gray-700 text-sm font-semibold mb-1">
-              Password
-            </label>
-            <div className="relative flex justify-end">
-              <CiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
-              <input
-                type={viewPassword?"text":"password"}
-                name='Password'
-                value={formData.Password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-              <span className='cursor-pointer' onClick={handleViewPassword}>
-                {
-                    viewPassword?<FaEye/>:<FaEyeSlash/>
-                }
-              </span>
-            </div>
-          </div>
+         <div>
+  <label className="block text-gray-700 text-sm font-semibold mb-1">
+    Password
+  </label>
+  <div className="relative">
+    <CiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+    <input
+      type={viewPassword ? "text" : "password"}
+      name="Password"
+      value={formData.Password}
+      onChange={handleChange}
+      placeholder="••••••••"
+      className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+    />
+    <span
+      className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
+      onClick={handleViewPassword}
+    >
+      {viewPassword ? <FaEye /> : <FaEyeSlash />}
+    </span>
+  </div>
+</div>
 
 
           <div className="flex items-center">
