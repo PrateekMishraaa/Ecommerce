@@ -13,6 +13,7 @@ const MilkCategory = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://ecommercebackend-nlx8.onrender.com/api/all-products');
+        console.log('this is mil data',response)
         setData(response.data.allproducts);
         setLoading(false);
       } catch (err) {
