@@ -12,7 +12,7 @@ const MilkCategory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/all-products');
+        const response = await axios.get('https://ecommercebackend-nlx8.onrender.com/api/all-products');
         setData(response.data.allproducts);
         setLoading(false);
       } catch (err) {
